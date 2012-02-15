@@ -289,7 +289,10 @@ function jq_remote_function($options)
 		// On failure, execute a client-side function
 		if (isset($options['update']['failure'])) $update_failure = $options['update']['failure'];
 	}
-	else if (isset($options['update'])) $update_success = "#".$options['update'];
+	elseif (isset($options['update']))
+	{
+		$update_success = "#".$options['update'];
+	}
 
 	// Update method
 	$updateMethod = _update_method(isset($options['position']) ? $options['position'] : '');
@@ -297,7 +300,11 @@ function jq_remote_function($options)
 	// Callbacks
 	if (isset($options['loading'])) $callback_loading = $options['loading'];
 	if (isset($options['complete'])) $callback_complete = $options['complete'];
-	if (isset($options['success'])) $callback_success = $options['success'];
+	if (isset($options['update']['success_callback']))
+	{
+		$callback_success = $options['update']['success_callback'];
+	}
+	elseif(isset($options['success'])) $callback_success = $options['success'];
 	
 	if (isset($options['cache'])) { 
 		if($options['cache']){
